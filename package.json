@@ -1,6 +1,6 @@
 {
   "name": "dirw4lker",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Web-Directories Scanner",
   "main": "index.js",
   "bin": "./index.js",
