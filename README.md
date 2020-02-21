@@ -2,20 +2,16 @@
 
 **dirw4lker** is a directories/files web-sites scanner. 
 
-
 It works on HTTP and HTTPS host and it allows to find hidden files hosted on target url using a dictionary-list.
-
 
 Pure written in NodeJs and **without** dependencies.
 
 # Usage example on Kali
 
 ```bash
-git clone https://gitlab.com/Gr3p/dirw4lker.git
-cd dirw4lker
-node index.js --host=http://testphp.vulnweb.com --listDir=/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+npm install -g dirw4lker
+dirw4lker --host=http://testphp.vulnweb.com --listDir=/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --limit=500
 ```
-
 
 ```bash
    .___.__        __      __  _____ .__   __                         __        
@@ -48,7 +44,7 @@ Limit of 500 requests!
 ## Install with npm
 
 ```bash
-npm -g dirw4lker
+npm install -g dirw4lker
 ```
 
 ## HowTo
