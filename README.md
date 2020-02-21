@@ -45,8 +45,6 @@ node index.js --host=http://testphp.vulnweb.com --listDir=/usr/share/dirbuster/w
 Limit of 500 requests!
 ```
 
-
-
 ## Install with npm
 
 ```bash
@@ -69,10 +67,15 @@ dirw4lker --host=http://example.com --listDir=/tmp/directory.txt
 
 dirw4lker will use your local-dns to resolve hostname as default. But you can change this with the option `--dns`.
 
-
 ```bash
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --dns=8.8.8.8
 ```
+
+You can limit the number of maximal requests with the `--limit` option.
+```bash
+dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --limit=500
+```
+
 
 ## Problems and Fixes
 
