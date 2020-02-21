@@ -36,7 +36,7 @@ dirw4lker --host=<TARGET_URL> --listDir=<PATH_TO_DICTIONARY_LIST>
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt
 ```
 
-dirw4lker will use your local-dns as default. But if you can change this with the option `--dns`.
+dirw4lker will use your local-dns as default. But you can change this with the option `--dns`.
 
 
 ```bash
