@@ -1,0 +1,29 @@
+{
+  "name": "dirw4lker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "testing",
+    "pentesting",
+    "scanner",
+    "tcp",
+    "http",
+    "https",
+    "scantool",
+    "fuzz",
+    "brute",
+    "brute-force",
+    "security",
+    "cli",
+    "directory",
+    "directories",
+    "directories-finder",
+    "forensic"
+  ],
+  "author": "gr3p",
+  "license": "ISC"
+}
