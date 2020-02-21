@@ -13,15 +13,16 @@ const parseArg = require('./util/parseArguments');
  */
 async function launcher(list) {
     const extensions = ['/', '.php', '.txt'];
-    // console.log(chunkCounter,'first:',split[0])
     for (let string of list) {
-        for (let ext of extensions) {
-            const targetPath = string + ext;
-            await makeAndLogReq(targetPath, {
-                target: TARGET_HOST,
-                // injectPayload: false,
-                dns: USE_DNS ? USE_DNS.split(',') : undefined
-            });
+        if (string[0] !== '#') {
+            for (let ext of extensions) {
+                const targetPath = string + ext;
+                await makeAndLogReq(targetPath, {
+                    target: TARGET_HOST,
+                    // injectPayload: false,
+                    dns: USE_DNS ? USE_DNS.split(',') : undefined
+                });
+            }
         }
     }
 }
@@ -36,7 +37,7 @@ function makeAndLogReq(path, config) {
                 // console.log('NOT FOUND FOR:', target);
             } else {
                 const CODE = responseString.split('\r\n')[0];
-                console.log([new Date()], 'RECEIVED smth. =>', target, CODE);
+                console.log([new Date()], '=>', target, '=>', CODE);
                 // if (~CODE.indexOf(403)) {
                 //     console.log(responseString);
                 // }
