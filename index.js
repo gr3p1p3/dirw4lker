@@ -44,7 +44,7 @@ function makeAndLogReq(path, config) {
                 // console.log('NOT FOUND FOR:', target);
             } else {
                 const CODE = responseString.split('\r\n')[0];
-                console.log([new Date()], '=>', target, '=>', CODE);
+                console.log([new Date()], target, '=>', CODE);
                 // if (~CODE.indexOf(403)) {
                 //     console.log(responseString);
                 // }
