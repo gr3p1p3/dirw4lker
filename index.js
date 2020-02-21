@@ -12,16 +12,22 @@ const parseArg = require('./util/parseArguments');
  * @returns {Promise<void>}
  */
 async function launcher(list) {
+    let counter = 0;
     const extensions = ['/', '.php', '.txt'];
     for (let string of list) {
         if (string && string[0] !== '#') {
             for (let ext of extensions) {
+                counter++;
                 const targetPath = string + ext;
-                await makeAndLogReq(targetPath, {
-                    target: TARGET_HOST,
-                    // injectPayload: false,
-                    dns: USE_DNS ? USE_DNS.split(',') : undefined
-                });
+                if (counter < LIMIT) {
+                    await makeAndLogReq(targetPath, {
+                        target: TARGET_HOST,
+                        // injectPayload: false,
+                        dns: USE_DNS ? USE_DNS.split(',') : undefined
+                    });
+                } else {
+                    throw '\nLimit of ' + LIMIT + ' requests!';
+                }
             }
         }
     }
@@ -49,18 +55,20 @@ function makeAndLogReq(path, config) {
 }
 
 async function main() {
-    console.log(logWelcome);
-
     const args = parseArg(process.argv.slice(2));
+    console.log(logWelcome);
     console.table(args);
     console.log('\n');
 
     if (!args.host) {
         throw '--host parameter is not used or empty. Ex: --host=http://example.com/';
     }
-
     if (!args.listDir) {
         throw '--listDir parameter is not used or empty.';
+    }
+    if (args.limit) {
+        LIMIT = parseInt(args.limit);
+        console.log('**WARNING** Requests will be maximal', LIMIT)
     }
 
     TARGET_HOST = args.host;
@@ -70,8 +78,7 @@ async function main() {
     return launcher(data.toString().split('\n'));
 }
 
-let TARGET_HOST, USE_DNS, SAVE_LOGS;
-
 //execute all
+let TARGET_HOST, USE_DNS, LIMIT, SAVE_LOGS;
 return main()
     .catch(console.log);
