@@ -20,7 +20,7 @@ async function launcher(list) {
             for (let ext of extensions) {
                 counter++;
                 const targetPath = string + ext;
-                if (counter < LIMIT) {
+                if (!LIMIT || counter < LIMIT) {
                     await makeAndLogReq(targetPath, {
                         target: TARGET_HOST,
                         // injectPayload: false,
