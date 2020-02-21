@@ -14,7 +14,7 @@ const parseArg = require('./util/parseArguments');
 async function launcher(list) {
     const extensions = ['/', '.php', '.txt'];
     for (let string of list) {
-        if (string[0] !== '#') {
+        if (string && string[0] !== '#') {
             for (let ext of extensions) {
                 const targetPath = string + ext;
                 await makeAndLogReq(targetPath, {
@@ -65,9 +65,8 @@ async function main() {
 
     TARGET_HOST = args.host;
     USE_DNS = args.dns;
-    SAVE_LOGS = args.logs;
+    // SAVE_LOGS = args.logs; //TODO implement this option
     const data = await readFile(args.listDir);
-
     return launcher(data.toString().split('\n'));
 }
 
