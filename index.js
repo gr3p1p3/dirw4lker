@@ -14,7 +14,7 @@ const parseArg = require('./util/parseArguments');
  */
 async function launcher(list) {
     let counter = 0;
-    const extensions = ['/', '.php', '.txt'];
+    const extensions = ['/', '.php', '.txt', '.html'];
     for (let string of list) {
         if (string && string[0] !== '#') {
             for (let ext of extensions) {

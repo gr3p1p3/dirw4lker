@@ -2,7 +2,7 @@
 
 **dirw4lker** is a directories/files web-sites scanner. 
 
-It works on HTTP and HTTPS host and it allows to find hidden files hosted on target url using a dictionary-list.
+It works on HTTP and HTTPS sites and it allows to find hidden files hosted on target url using a dictionary-list.
 
 Pure written in NodeJs and **without** dependencies.
 
@@ -86,4 +86,4 @@ dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --limit=500
 
 ## Special Thanks
 
-Inspired from dirbuster.
+Inspired by [dirBuster](https://owasp.org/projects/).

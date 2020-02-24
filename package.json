@@ -1,6 +1,6 @@
 {
   "name": "dirw4lker",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Web-Directories Scanner",
   "main": "index.js",
   "bin": "./index.js",
@@ -23,7 +23,9 @@
     "directory",
     "directories",
     "directories-finder",
-    "forensic"
+    "forensic",
+    "hacking",
+    "hack"
   ],
   "author": "gr3p",
   "license": "ISC",
