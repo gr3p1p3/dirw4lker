@@ -1,7 +1,7 @@
 {
   "name": "dirw4lker",
-  "version": "1.0.8",
-  "description": "Web-Directories Scanner",
+  "version": "1.1.0",
+  "description": "Web-Directories Scanner.\nFind hidden or not hidden directories and files on target web application.",
   "main": "index.js",
   "bin": "./index.js",
   "scripts": {
@@ -10,6 +10,8 @@
   "keywords": [
     "testing",
     "pentesting",
+    "penetration",
+    "penetration testing",
     "scanner",
     "tcp",
     "http",
@@ -17,15 +19,20 @@
     "scantool",
     "fuzz",
     "brute",
+    "bruteforce",
     "brute-force",
     "security",
+    "cybersecurity",
     "cli",
     "directory",
     "directories",
     "directories-finder",
     "forensic",
     "hacking",
-    "hack"
+    "hack",
+    "crack",
+    "wordlist",
+    "directory traversal attack"
   ],
   "author": "gr3p",
   "license": "ISC",

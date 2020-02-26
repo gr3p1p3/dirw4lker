@@ -10,25 +10,26 @@ const parseArg = require('./util/parseArguments');
 /**
  * Start dictionary attack with given list.
  * @param {Array<string>} list - The list of string to use.
+ * @param {Array<string>} extensions - The list of extensions to combinate.
  * @returns {Promise<void>}
  */
-async function launcher(list) {
-    let counter = 0;
-    const extensions = ['/', '.php', '.txt', '.html'];
+async function launcher(list, extensions) {
+    let requestsCounter = 0;
     for (let string of list) {
-        if (string && string[0] !== '#') {
-            for (let ext of extensions) {
-                counter++;
-                const targetPath = string + ext;
-                if (!LIMIT || counter < LIMIT) {
-                    await makeAndLogReq(targetPath, {
-                        target: TARGET_HOST,
-                        // injectPayload: false,
-                        dns: USE_DNS ? USE_DNS.split(',') : undefined
-                    });
-                } else {
-                    throw '\nLimit of ' + LIMIT + ' requests!';
-                }
+        for (let ext of extensions) {
+            requestsCounter++;
+            const targetPath = string + ext;
+            if (!LIMIT || requestsCounter < LIMIT) {
+                const timerStart = new Date();
+                await makeAndLogReq(targetPath, {
+                    target: TARGET_HOST,
+                    // injectPayload: false,
+                    dns: USE_DNS ? USE_DNS.split(',') : undefined
+                });
+                const time = new Date() - timerStart;
+                console.log('TIME', time / 1000)
+            } else {
+                throw '\nLimit of ' + LIMIT + ' requests is reached!';
             }
         }
     }
@@ -39,7 +40,7 @@ function makeAndLogReq(path, config) {
     config.target = target;
 
     return RequestAgent(config)
-        .then(function (responseString) {
+        .then(function filterResponse(responseString) {
             if (!responseString || responseString.match('404')) {
                 // console.log('NOT FOUND FOR:', target);
             } else {
@@ -49,37 +50,55 @@ function makeAndLogReq(path, config) {
                 //     console.log(responseString);
                 // }
             }
+            return true;
         })
         .catch(function (err) {
-            console.log((err.code || err), '@@at', target);
+            console.log((err.code || err), '@@at', target); //TODO implement logic: If errors are more then <25> then paused scanning
+            return true;
         });
 }
 
-async function main() {
-    const args = parseArg(process.argv.slice(2));
+async function main(args) {
+    const EXTENSIONS = ['/'];
+
     console.log(logWelcome);
     console.table(args);
-    console.log('\n');
 
     if (!args.host) {
         throw '--host parameter is not used or empty. Ex: --host=http://example.com/';
     }
     if (!args.listDir) {
-        throw '--listDir parameter is not used or empty.';
+        console.log('--listDir parameter is not used or empty. Using default list will not be really effective!');
+        args.listDir = './lib/payloads/global.txt';
     }
     if (args.limit) {
         LIMIT = parseInt(args.limit);
-        console.log('**WARNING** Requests will be maximal', LIMIT)
+        console.log('**WARNING** Requests will be maximal', LIMIT);
+    }
+    if (args.ext) {
+        args.ext.split(',')
+            .map(function (ext) {
+                ext = (ext[0] !== '.') ? '.' + ext : ext;
+                EXTENSIONS.push(ext);
+            });
     }
 
     TARGET_HOST = args.host;
     USE_DNS = args.dns;
-    // SAVE_LOGS = args.logs; //TODO implement this option
+    // SAVE_LOGS = args.logs; //TODO implement this option, for saving logs
     const data = await readFile(args.listDir);
-    return launcher(data.toString().split('\n'));
+    //cleaning data
+    const cleanedData = data.toString()
+        .split('\n')
+        .filter(function (string) {
+            return string && string[0] !== '#';
+        });
+    // console.log('cleanedData', cleanedData.length); //TODO log info about total requestsToDo
+    console.log('\n');
+    return launcher(cleanedData, EXTENSIONS);
 }
 
 //execute all
 let TARGET_HOST, USE_DNS, LIMIT, SAVE_LOGS;
-return main()
+return main(parseArg(process.argv.slice(2)))
     .catch(console.log);
