@@ -2,7 +2,7 @@
 
 **dirw4lker** is a directories/files web-sites scanner. 
 
-It works on HTTP and HTTPS sites and it allows to find hidden files hosted on target url using a dictionary-list.
+It works with HTTP and HTTPS protocols and it allows to find hidden files hosted on target url using a dictionary-list.
 
 Pure written in NodeJs and **without** dependencies.
 
@@ -11,22 +11,48 @@ Pure written in NodeJs and **without** dependencies.
 ```bash
 npm install -g dirw4lker
 ```
+or 
+
+```bash
+npm i dirw4lker
+```
 
 ## HowTo
 
-dirw4lker is simple to use.
+dirW4lker can used as Command Line Tool and is really simple to use.
 
 ```bash
 dirw4lker --host=<TARGET_URL> --listDir=<PATH_TO_DICTIONARY_LIST>
 ```
 
-# Example on Kali
+You can omit the `--listDir` option to use the default list includes in this module.
+
+*The default list is not really effective, but will cover common used page names.*
+
+# Js API
+
+```javascript
+const dirWalker = require('dirw4lker');
+
+const config = {
+    host: 'http://testphp.vulnweb.com',
+};
+
+dirWalker.launch(config)
+    .then((founds) => {
+        console.log('FOUNDS:', founds.length);
+    });
+
+//FOUNDS: 3
+```
+
+# CLI: Quick start on Kali
 
 ```bash
 npm install -g dirw4lker
 dirw4lker --host=http://testphp.vulnweb.com --listDir=/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --limit=500
 ```
-
+Output:
 ```bash
     .___.__        __      __  _____ .__   __                         __        
   __| _/|__|______/  \    /  \/  |  ||  | |  | __ ___________        |__| ______
@@ -65,11 +91,19 @@ dirw4lker --host=http://testphp.vulnweb.com --listDir=/usr/share/dirbuster/wordl
 
 # Examples
 
+You can use your own list with the option `--listDir`
+
 ```bash
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt
 ```
 
-dirw4lker will use your local-dns to resolve hostname as default. But you can change this with the option `--dns`.
+The option `--ext` can used to combine the string on list with file-extensions.
+
+```bash
+dirw4lker --host=http://example.com --ext=php,txt,html
+```
+
+dirW4lker will use your local-dns to resolve hostname as default. But you can change this with the option `--dns`.
 
 ```bash
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --dns=8.8.8.8

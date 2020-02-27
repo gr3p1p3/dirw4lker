@@ -1,6 +1,5 @@
 .idea
 .npmignore
-files
-tests
 archive
+test
 package.json
