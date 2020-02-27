@@ -67,25 +67,21 @@ Output:
 [!] Legal disclaimer: Usage of this tool for scanning targets without prior mutual consent is illegal.
 
 
+┌─────────┬──────────────────────────────┐
+│ (index) │            Values            │
+├─────────┼──────────────────────────────┤
+│  host   │ 'http://testphp.vulnweb.com' │
+└─────────┴──────────────────────────────┘
 
- ┌─────────┬────────────────────────────────────────────────────────────────┐
- │ (index) │                             Values                             │
- ├─────────┼────────────────────────────────────────────────────────────────┤
- │  host   │                  'http://testphp.vulnweb.com'                  │
- │ listDir │ '/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt' │
- │  limit  │                             '500'                              │
- └─────────┴────────────────────────────────────────────────────────────────┘
- 
- 
- **WARNING** Requests will be maximal 500
- [ 2020-02-21T20:30:26.271Z ] '=>' 'http://testphp.vulnweb.com/index.php' '=>' 'HTTP/1.1 200 OK'
- [ 2020-02-21T20:30:26.413Z ] '=>' 'http://testphp.vulnweb.com/images/' '=>' 'HTTP/1.1 200 OK'
- [ 2020-02-21T20:30:28.721Z ] '=>' 'http://testphp.vulnweb.com/search.php' '=>' 'HTTP/1.1 200 OK'
- [ 2020-02-21T20:30:30.329Z ] '=>' 'http://testphp.vulnweb.com/cgi-bin/' '=>' 'HTTP/1.1 403 Forbidden'
- [ 2020-02-21T20:30:34.083Z ] '=>' 'http://testphp.vulnweb.com/login.php' '=>' 'HTTP/1.1 200 OK'
- [ 2020-02-21T20:30:55.660Z ] '=>' 'http://testphp.vulnweb.com/product.php' '=>' 'HTTP/1.1 200 OK'
- 
- Limit of 500 requests!
+--listDir parameter is not used or empty. Using default list will not be really effective!
+
+
+[ 2020-02-27T19:26:59.039Z ] 'http://testphp.vulnweb.com/images/' '=>' 'HTTP/1.1 200 OK'
+[ 2020-02-27T19:27:00.749Z ] 'http://testphp.vulnweb.com/cgi-bin/' '=>' 'HTTP/1.1 403 Forbidden'
+[ 2020-02-27T19:27:04.348Z ] 'http://testphp.vulnweb.com/admin/' '=>' 'HTTP/1.1 200 OK'
+
+FOUNDS: 3
+Time: 9570.341ms
 ```
 
 
@@ -97,13 +93,14 @@ You can use your own list with the option `--listDir`
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt
 ```
 
-The option `--ext` can used to combine the string on list with file-extensions.
+The option `--ext` can used to combine the string on list with file-extensions. Use `,` for multiple extensions.
 
 ```bash
 dirw4lker --host=http://example.com --ext=php,txt,html
 ```
 
 dirW4lker will use your local-dns to resolve hostname as default. But you can change this with the option `--dns`.
+Use `,` for multiple dns servers.
 
 ```bash
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --dns=8.8.8.8
