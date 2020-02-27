@@ -107,6 +107,7 @@ skin
 var
 RootDirectory
 pub
+hpp
 phpserver
 setup
 digital-experience

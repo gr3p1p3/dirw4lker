@@ -50,7 +50,7 @@ dirWalker.launch(config)
 
 ```bash
 npm install -g dirw4lker
-dirw4lker --host=http://testphp.vulnweb.com --listDir=/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --limit=500
+dirw4lker --host=http://testphp.vulnweb.com
 ```
 Output:
 ```bash
