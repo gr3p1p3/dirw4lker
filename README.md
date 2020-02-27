@@ -111,10 +111,6 @@ You can limit the number of maximal requests with the `--limit` option.
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --limit=500
 ```
 
-## Problems and Fixes
-
-- javascript heap out of memory => `node --max-old-space-size=<Number>`
-
 ## Special Thanks
 
 Inspired by [dirBuster](https://owasp.org/projects/).
