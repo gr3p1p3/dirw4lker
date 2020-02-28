@@ -51,7 +51,7 @@ The method launch need a configuration object with the follow parameters:
 |host | <code>String</code> |  The receiver hostname. |
 |listDir| <code>String</code> | [Optional] Path to the dictionary-file to use. |
 |ext| <code>String</code> | [Optional] The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt') |
-|dns| <code>String</code> | [Optional] Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,4.4.4.4')   |
+|dns| <code>String</code> | [Optional] Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,8.8.4.4')   |
 |verbose| <code>Boolean</code> | [Optional] Activate verbose. As default false.  |
 
 @returns
@@ -98,6 +98,7 @@ FOUNDS: 3
 Time: 9570.341ms
 ```
 
+The CLI accept same parameters as API-Module.
 
 # Examples
 
