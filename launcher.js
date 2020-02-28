@@ -7,8 +7,11 @@ config.verbose = true;
 
 console.time('Time');
 return dirWalker.launch(config)
-    .then(function(founds) {
+    .then(function (founds) {
         console.log('\nFOUNDS:', founds.length);
         console.timeEnd('Time');
     })
-    .catch(console.log);
+    .catch(function (err) {
+        console.log(err.message);
+        console.timeEnd('Time');
+    });

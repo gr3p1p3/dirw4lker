@@ -40,13 +40,27 @@ const config = {
 
 dirWalker.launch(config)
     .then((founds) => {
-        console.log('FOUNDS:', founds.length);
+        console.log('FOUNDS:', founds.length);  //FOUNDS: 3
     });
-
-//FOUNDS: 3
 ```
 
-# CLI: Quick start on Kali
+The method launch need a configuration object with the follow parameters:
+
+| Param  | Type                | Description  |
+| ------ | ------------------- | ------------ |
+|host | <code>String</code> |  The receiver hostname. |
+|listDir| <code>String</code> | [Optional] Path to the dictionary-file to use. |
+|ext| <code>String</code> | [Optional] The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt') |
+|dns| <code>String</code> | [Optional] Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,4.4.4.4')   |
+|verbose| <code>Boolean</code> | [Optional] Activate verbose. As default false.  |
+
+@returns
+
+| Type                | Description  |
+| ------------------- | ------------ |
+| <code>Promise<Array<Object>></code> |  The found results. [{target:<String>, response:<String>, ms:<Number>}, ...] |
+
+# CLI: Quickstart
 
 ```bash
 npm install -g dirw4lker
@@ -104,11 +118,6 @@ Use `,` for multiple dns servers.
 
 ```bash
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --dns=8.8.8.8
-```
-
-You can limit the number of maximal requests with the `--limit` option.
-```bash
-dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --limit=500
 ```
 
 ## Special Thanks
