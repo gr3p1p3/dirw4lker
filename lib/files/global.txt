@@ -17,6 +17,10 @@ crack
 serial
 warez
 full
+careers
+career
+studio
+studios
 contact
 comment
 comments
@@ -108,6 +112,8 @@ var
 RootDirectory
 pub
 hpp
+shop
+shops
 phpserver
 setup
 digital-experience
@@ -127,6 +133,8 @@ impressum
 id
 schedule
 row
+insights
+insight
 rows
 account
 me
@@ -143,6 +151,10 @@ home
 settings
 members
 help
+what-we-do
+who-are-we
+who-we-are
+where-we-are
 groups
 cart
 userinfo

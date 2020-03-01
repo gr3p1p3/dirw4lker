@@ -6,6 +6,12 @@ It works with HTTP and HTTPS protocols and it allows to find hidden files hosted
 
 Pure written in NodeJs and **without** dependencies.
 
+
+## Updates
+
+- [03.2020] @1.4.0 **EXPERIMENTAL** Implemented possibility to start a little scan in an async way.
+- [03.2020] @1.3.0  Implemented new option `--ignoreResponseWith`.
+
 ## Install with npm
 
 ```bash
@@ -27,7 +33,8 @@ dirw4lker --host=<TARGET_URL> --listDir=<PATH_TO_DICTIONARY_LIST>
 
 You can omit the `--listDir` option to use the default list includes in this module.
 
-*The default list is not really effective, but will cover common used page names.*
+*The default list is not really effective, but will cover common used page names*
+
 
 # Js API
 
@@ -40,7 +47,7 @@ const config = {
 
 dirWalker.launch(config)
     .then((founds) => {
-        console.log('FOUNDS:', founds.length);  //FOUNDS: 3
+        console.log('FOUNDS:', founds.length);  //FOUNDS: 4
     });
 ```
 
@@ -52,6 +59,8 @@ The method launch need a configuration object with the follow parameters:
 |listDir| <code>String</code> | [Optional] Path to the dictionary-file to use. |
 |ext| <code>String</code> | [Optional] The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt') |
 |dns| <code>String</code> | [Optional] Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,8.8.4.4')   |
+|ignoreResponseWith| <code>String</code> | [Optional] The string to ignore on response received. If response contains given parameter, then will be ignored.|
+|asyncRequests| <code>Boolean</code> | [Optional] Starting attack in async way. As Default false. **WARNING** Unstable on big list at the moment.|
 |verbose| <code>Boolean</code> | [Optional] Activate verbose. As default false.  |
 
 @returns
@@ -64,7 +73,7 @@ The method launch need a configuration object with the follow parameters:
 
 ```bash
 npm install -g dirw4lker
-dirw4lker --host=http://testphp.vulnweb.com
+dirw4lker --host=http://testphp.vulnweb.com --asyncRequests
 ```
 Output:
 ```bash
@@ -90,13 +99,16 @@ Output:
 --listDir parameter is not used or empty. Using default list will not be really effective!
 
 
-[ 2020-02-27T19:26:59.039Z ] 'http://testphp.vulnweb.com/images/' '=>' 'HTTP/1.1 200 OK'
-[ 2020-02-27T19:27:00.749Z ] 'http://testphp.vulnweb.com/cgi-bin/' '=>' 'HTTP/1.1 403 Forbidden'
-[ 2020-02-27T19:27:04.348Z ] 'http://testphp.vulnweb.com/admin/' '=>' 'HTTP/1.1 200 OK'
+[ 2020-03-01T17:20:31.991Z ] 'http://testphp.vulnweb.com/images/' '=>' 'HTTP/1.1 200 OK'
+[ 2020-03-01T17:20:32.001Z ] 'http://testphp.vulnweb.com/cgi-bin/' '=>' 'HTTP/1.1 403 Forbidden'
+[ 2020-03-01T17:20:32.106Z ] 'http://testphp.vulnweb.com/admin/' '=>' 'HTTP/1.1 200 OK'
+[ 2020-03-01T17:20:32.161Z ] 'http://testphp.vulnweb.com/hpp/' '=>' 'HTTP/1.1 200 OK'
 
-FOUNDS: 3
-Time: 9570.341ms
+FOUNDS: 4
+Time: 389.821ms
 ```
+
+*Compared to sync way: Time 11217.262ms*
 
 The CLI accept same parameters as API-Module.
 
@@ -119,6 +131,13 @@ Use `,` for multiple dns servers.
 
 ```bash
 dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --dns=8.8.8.8
+```
+
+To ignore response with custom string, use the option ```--ignoreResponseWith=<stringToIgnore>```
+For example, ignoring all responses containing code 301.
+
+```bash
+dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --ignoreResponseWith=301
 ```
 
 ## Special Thanks

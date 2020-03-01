@@ -2,7 +2,13 @@ function parseArg(argumentsArray) {
     const argObj = {};
     for (let arg of argumentsArray) {
         const [attr, value] = arg.split('=');
-        argObj[attr.replace(/-/gmi, '')] = value || true;
+        const attribute = attr.replace(/-/gmi, '');
+
+        if (value && (value.toLowerCase() === 'false' || value === '0')) {
+            argObj[attribute] = false;
+        } else {
+            argObj[attribute] = value || true;
+        }
     }
     return argObj;
 }

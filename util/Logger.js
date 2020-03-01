@@ -1,3 +1,9 @@
+/**
+ *
+ * @param debugFlag
+ * @returns {Logger}
+ * @constructor
+ */
 function Logger(debugFlag) {
     const thisInstance = this;
 
@@ -8,15 +14,16 @@ function Logger(debugFlag) {
         }
     };
 
-    thisInstance.log = function log(arg) {
+    thisInstance.clearAndLog = function clearAndLog(arg) {
         if (debugFlag) {
-            console.log(...arguments);
+            thisInstance.clearLine();
+            thisInstance.log(...arguments);
         }
     };
 
-    thisInstance.table = function table(arg) {
+    thisInstance.log = function log(arg) {
         if (debugFlag) {
-            console.table(arg);
+            console.log(...arguments);
         }
     };
 
@@ -24,6 +31,16 @@ function Logger(debugFlag) {
         if (debugFlag) {
             thisInstance.clearLine();
             thisInstance.write(arg);
+        }
+    };
+
+    thisInstance.send = function send(arg) {
+        process.send(arg);
+    };
+
+    thisInstance.table = function table(arg) {
+        if (debugFlag) {
+            console.table(arg);
         }
     };
 
