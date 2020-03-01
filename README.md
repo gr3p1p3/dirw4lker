@@ -9,6 +9,7 @@ Pure written in NodeJs and **without** dependencies.
 
 ## Updates
 
+- [03.2020] @1.4.4 `--asyncRequests` option is now stable.
 - [03.2020] @1.4.x Implemented `--asyncRequests` possibility to start a scan in an async way.
 - [03.2020] @1.3.x Implemented new option `--ignoreResponseWith`.
 
@@ -60,7 +61,7 @@ The method launch need a configuration object with the follow parameters:
 |ext| <code>String</code> | [Optional] The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt') |
 |dns| <code>String</code> | [Optional] Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,8.8.4.4')   |
 |ignoreResponseWith| <code>String</code> | [Optional] The string to ignore on response received. If response contains given parameter, then will be ignored.|
-|asyncRequests| <code>Boolean</code> | [Optional] Starting attack in async way. As Default false. **WARNING** Unstable on big list at the moment.|
+|asyncRequests| <code>Boolean</code> | [Optional] Starting attack in async way. As Default false.|
 |verbose| <code>Boolean</code> | [Optional] Activate verbose. As default false.  |
 
 @returns
