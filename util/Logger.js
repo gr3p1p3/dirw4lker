@@ -1,3 +1,5 @@
+const logWelcome = require('../util/welcome')();
+
 /**
  *
  * @param debugFlag
@@ -42,6 +44,10 @@ function Logger(debugFlag) {
         if (debugFlag) {
             console.table(arg);
         }
+    };
+
+    thisInstance.welcome = function () {
+        thisInstance.log(logWelcome);
     };
 
     thisInstance.write = function write(arg) {

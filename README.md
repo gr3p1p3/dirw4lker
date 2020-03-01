@@ -9,8 +9,8 @@ Pure written in NodeJs and **without** dependencies.
 
 ## Updates
 
-- [03.2020] @1.4.0 **EXPERIMENTAL** Implemented possibility to start a little scan in an async way.
-- [03.2020] @1.3.0  Implemented new option `--ignoreResponseWith`.
+- [03.2020] @1.4.x **EXPERIMENTAL** Implemented `--asyncRequests` possibility to start a scan in an async way.
+- [03.2020] @1.3.x  Implemented new option `--ignoreResponseWith`.
 
 ## Install with npm
 

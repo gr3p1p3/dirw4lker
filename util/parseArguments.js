@@ -7,7 +7,7 @@ function parseArg(argumentsArray) {
         if (value && (value.toLowerCase() === 'false' || value === '0')) {
             argObj[attribute] = false;
         } else {
-            argObj[attribute] = value || true;
+            argObj[attribute] = (value && value !== 'true') ? value : true;
         }
     }
     return argObj;
