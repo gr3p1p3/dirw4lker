@@ -5,24 +5,18 @@
  * @param CONCURRENCY_LIMIT - How many max. parallel concurrency.
  * @returns {Promise<>}
  */
-function parallelPromises(listArguments, asyncCallback, CONCURRENCY_LIMIT) {
+async function parallelPromises(listArguments, asyncCallback, CONCURRENCY_LIMIT) {
     //make requests in a async-way avoiding problems of concurrency limit
-    const argsCopy = listArguments.slice();
-    const promises = new Array(CONCURRENCY_LIMIT).fill(Promise.resolve());
+    let results = [];
+    const batchesCount = Math.ceil(listArguments.length / CONCURRENCY_LIMIT);
+    for (let i = 0; i < batchesCount; i++) {
+        const batchStart = i * CONCURRENCY_LIMIT;
+        const batchArgs = listArguments.slice(batchStart, batchStart + CONCURRENCY_LIMIT);
+        const batchPromises = batchArgs.map(asyncCallback);
 
-    function chainNext(promise) {
-        if (argsCopy.length) {
-            const arg = argsCopy.shift();
-            return promise
-                .then(async function () {
-                    const promiseOP = asyncCallback(arg);
-                    return chainNext(promiseOP);
-                });
-        }
-        return promise;
+        results = [...results, ...await Promise.all(batchPromises)];
     }
-
-    return Promise.all(promises.map(chainNext));
+    return results;
 }
 
 module.exports = parallelPromises;
