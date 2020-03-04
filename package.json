@@ -1,7 +1,7 @@
 {
   "name": "dirw4lker",
-  "version": "1.4.4",
-  "description": "Web-Directories Scanner.\nFind hidden or not hidden directories and files on target web application.",
+  "version": "1.6.0",
+  "description": "Asynchronous Web-Directories Scanner.\nFind hidden or not hidden directories and files on target web application.",
   "main": "lib/index.js",
   "bin": "./launcher.js",
   "scripts": {
