@@ -128,6 +128,22 @@ Time: 1134.887ms
 
 The CLI accept same parameters as API-Module.
 
+# Using proxy
+
+It may happen to test a web application with the need to use a proxy to access it.
+For this reason, the ability to encapsulate requests behind a *proxy* has been implemented.
+
+This mode can currently be used **ONLY** with http-proxies that use the `CONNECT` method to open a tunnel between the sender and the receiver.
+This method obviously slows down requests and reduces performance.
+
+It works with HTTP & HTTPS targets.
+
+```bash
+dirw4lker --host=http://example.com --proxy=http://127.0.0.1:3128
+```
+
+*Proxy must be written like url*
+
 # Examples
 
 You can use your own list with the option `--listDir`
