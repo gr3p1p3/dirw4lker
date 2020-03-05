@@ -1,6 +1,6 @@
 {
   "name": "dirw4lker",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Asynchronous Web-Directories Scanner.\nFind hidden or not hidden directories and files on target web application.",
   "main": "lib/index.js",
   "bin": "./launcher.js",
@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "test",
     "testing",
+    "stress tool",
     "pentesting",
     "penetration",
     "penetration testing",
@@ -19,22 +21,22 @@
     "scantool",
     "fuzz",
     "brute",
-    "bruteforce",
+    "brute force",
     "brute-force",
     "security",
     "cybersecurity",
+    "IT-security",
     "cli",
+    "command line",
     "directory",
     "directories",
     "directories-finder",
     "forensic",
     "hacking",
     "hack",
-    "crack",
-    "wordlist",
-    "directory traversal attack"
+    "wordlist"
   ],
   "author": "gr3p",
   "license": "ISC",
-  "homepage": "https://gitlab.com/Gr3p/dirw4lker"
+  "homepage": "https://github.com/gr3p1p3/dirw4lker"
 }
