@@ -1,3 +1,5 @@
+# This repository was moved to [github](https://github.com/gr3p1p3/dirw4lker).
+
 # dirW4lker.js
 
 **dirw4lker** is a directories/files web-sites scanner. 
