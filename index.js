@@ -2,12 +2,12 @@ const fs = require('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 
-const Logger = require('../util/Logger');
-const startDicAttack = require('./startDicAttack');
+const Logger = require('./util/Logger');
+const startDicAttack = require('./lib/startDicAttack');
 
 /**
  * Launch dictionary-attack to the target host.
- * @param config
+ * @param {Object} config
  * @param {string} config.host - The receiver hostname. (Ex: http://example.com)
  * @param {string} [config.listDir] - The path to the dictionary-file.
  * @param {string} [config.ext] - The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt')
@@ -15,14 +15,13 @@ const startDicAttack = require('./startDicAttack');
  * @param {string} [config.proxy] - The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).
  * @param {string} [config.ignoreResponseWith] - The string to ignore on response received. If response contains given parameter, then will be ignored.
  * @param {Boolean} [config.verbose] - Activate verbose. As default false.
- * @param {boolean} [config.asyncRequests] - Starting attack in async way. **WARNING** Unstable on big list.
- * @returns {Promise<Array<Object>>} - The found results. [{target:<host:port/foundPage>, response:<string>, ms:<Number>}, ...]
+ * @param {Boolean} [config.asyncRequests] - Starting attack in async way.
+ * @returns {Promise<Object>} - The found results. {sent:<Number>, founds:[{target:<host:port/foundPage>, response:<string>, ms:<Number>}, ...]}
  */
 async function launch(config) {
-    const logger = new Logger(config.verbose);
-    delete config.verbose;
-
     const EXTENSIONS = ['/']; //defining default extensions to use
+    const logger = new Logger(config.verbose);
+    delete config.verbose; //delete verbose attribute 'cause is only need to init Logger-Instance
 
     logger.welcome();
     logger.table(config);
@@ -33,7 +32,7 @@ async function launch(config) {
     }
     if (!config.listDir) {
         logger.log('\n--listDir parameter is not used or empty. Using default list will not be really effective!');
-        config.listDir = __dirname + '/files/global.txt';
+        config.listDir = __dirname + '/lib/lists/global.txt';
     }
     if (config.ext) {
         config.ext.split(',')
@@ -52,7 +51,6 @@ async function launch(config) {
         });
 
     logger.log('\n');
-
     const results = await startDicAttack({
         list: cleanedData,
         extensions: EXTENSIONS,
@@ -65,10 +63,12 @@ async function launch(config) {
 
     logger.clearLine();
     //cleaning from errored
-    return results
+    const filtered = results
         .filter(function (response) {
             return response && !response.err;
         });
+
+    return {sent: results.length, founds: filtered};
 }
 
 module.exports = {launch};

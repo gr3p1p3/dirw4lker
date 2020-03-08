@@ -77,7 +77,7 @@ The method launch need a configuration object with the follow parameters:
 
 | Type                | Description  |
 | ------------------- | ------------ |
-| <code>Promise<Array<Object>></code> |  The found results. [{target:<String>, response:<String>, ms:<Number>}, ...] |
+| <code>Promise<Array<Object>></code> |  The found results. {sent:Number, founds:[{target:<host:port/foundPage>, response:String, ms:Number}, ...]} |
 
 # CLI: Quickstart
 

@@ -26,8 +26,10 @@ comment
 comments
 contacts
 about
+auth
 search
 spacer
+portfolio
 privacy
 logo
 blog
@@ -46,6 +48,7 @@ products
 sitemap
 archives
 links
+authorization
 login
 articles
 article

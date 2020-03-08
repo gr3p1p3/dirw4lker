@@ -19,31 +19,4 @@ async function parallelPromises(listArguments, asyncCallback, CONCURRENCY_LIMIT)
     return results;
 }
 
-async function take3subtake1part1(listOfArguments, asyncCallback, CONCURRENCY_LIMIT) {
-    // Enhance arguments array to have an index of the argument at hand
-    const argsCopy = listOfArguments.map((val, ind) => ({val, ind}));
-    const result = new Array(listOfArguments.length);
-    const promises = new Array(CONCURRENCY_LIMIT).fill(Promise.resolve());
-
-    // Recursively chain the next Promise to the currently executed Promise
-    function chainNext(singlePromise) {
-        if (argsCopy.length) {
-            const arg = argsCopy.shift();
-            return singlePromise
-                .then(function () {
-                    // Store the result into the array upon Promise completion
-                    const operationPromise = asyncCallback(arg.val)
-                        .then(function (r) {
-                            result[arg.ind] = r;
-                        });
-                    return chainNext(operationPromise);
-                });
-        }
-        return singlePromise;
-    }
-
-    await Promise.all(promises.map(chainNext));
-    return result;
-}
-
 module.exports = parallelPromises;
