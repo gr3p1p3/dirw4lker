@@ -2,9 +2,10 @@ const dirWalker = require('../index');
 
 (async function main() {
     const config = {
-        host: 'http://testphp.vulnweb.com/',
+        host: 'http://10.10.10.160/',
         ext: 'php,html,txt,jpg,css,xml,js',
         asyncRequests: true,
+        // verbose: true,
         ignoreResponseWith: '403'
     };
 

@@ -23,6 +23,8 @@ studio
 studios
 contact
 comment
+panel
+admin_panel
 comments
 contacts
 about
@@ -71,6 +73,10 @@ register
 gallery
 photos
 photo
+flag
+flags
+administrat
+administration
 feed
 feeds
 themes
