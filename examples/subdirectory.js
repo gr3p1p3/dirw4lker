@@ -1,3 +1,8 @@
+/**
+ *
+ *
+ * */
+
 const dirWalker = require('../index');
 
 (async function main() {

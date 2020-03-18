@@ -2,24 +2,30 @@
 
 # dirW4lker.js
 
-**dirw4lker** is a directories/files web-sites scanner. 
+**dirw4lker** is an asynchronous directories/files web-sites scanner. 
+
+
+Implemented directly on top of TCP, improving performance avoiding headers-stripping and getting a lot of chunks from websites containing a lot of content. 
 
 It works with HTTP and HTTPS protocols and it allows to find hidden files hosted on target url using a dictionary-list.
 You can use this for CTFs or to test your web applications. 
 
 Pure written in NodeJs and **without** dependencies.
 
+#### Issues & Bug-Reports are welcome
 
 ## Updates
 
-- [03.2020] Moved repository to [https://github.com/gr3p1p3/dirw4lker](https://github.com/gr3p1p3/dirw4lker)
-- [03.2020] @1.6.x `--proxy` option works on **https**-Targets too.
-- [03.2020] @1.5.x `--proxy` option is now implemented. It will only work on **http**-Targets.
-- [03.2020] Improved a lot of performance.
-- [03.2020] @1.4.4 `--asyncRequests` option is now stable.
-- [03.2020] @1.4.x Implemented `--asyncRequests`: possibility to start a scan in an async way.
-- [03.2020] @1.3.x Implemented new option `--ignoreResponseWith`.
-- [02.2020] @1.2.x Removed option `--limit`. This will be ignored.
+- [2020.03] @1.7.x implemented `list` option to use custom array.
+- [2020.03] @1.6.4 Fixed problem using proxy to http-targets
+- [2020.03] Moved repository to [https://github.com/gr3p1p3/dirw4lker](https://github.com/gr3p1p3/dirw4lker)
+- [2020.03] @1.6.x `--proxy` option works on **https**-Targets too.
+- [2020.03] @1.5.x `--proxy` option is now implemented. It will only work on **http**-Targets.
+- [2020.03] Improved a lot of performance.
+- [2020.03] @1.4.4 `--asyncRequests` option is now stable.
+- [2020.03] @1.4.x Implemented `--asyncRequests`: possibility to start a scan in an async way.
+- [2020.03] @1.3.x Implemented new option `--ignoreResponseWith`.
+- [2020.02] @1.2.x Removed option `--limit`. This will be ignored.
 
 ## Install with npm
 
@@ -65,13 +71,14 @@ The method launch need a configuration object with the follow parameters:
 | Param  | Type                | Description  |
 | ------ | ------------------- | ------------ |
 |host | <code>String</code> |  The receiver hostname. |
-|listDir| <code>String</code> | [Optional] Path to the dictionary-file to use. |
-|ext| <code>String</code> | [Optional] The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt') |
-|dns| <code>String</code> | [Optional] Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,8.8.4.4') *THIS OPTION WILL BE IGNORED IF PROXY IS USED*  |
-|proxy| <code>String</code> | [Optional] The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).   |
-|ignoreResponseWith| <code>String</code> | [Optional] The string to ignore on response received. If response contains given parameter, then will be ignored.|
-|asyncRequests| <code>Boolean</code> | [Optional] Starting attack in async way. As Default false.|
-|verbose| <code>Boolean</code> | [Optional] Activate verbose. As default false. **THIS OPTION WILL BE IGNORED ON CLI**  |
+|[listDir]| <code>String</code> | Path to the dictionary-file to use. |
+|[list]| <code>Array</code> | Array of strings to use instead opening local file. |
+|[ext]| <code>String|Array</code> | The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt') |
+|[dns]| <code>String</code> | Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,8.8.4.4') *THIS OPTION WILL BE IGNORED IF PROXY IS USED*  |
+|[proxy]| <code>String</code> | The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).   |
+|[ignoreResponseWith]| <code>String</code> | The string to ignore on response received. If response contains given parameter, then will be ignored.|
+|[asyncRequests]| <code>Boolean</code> | Starting attack in async way. As Default false.|
+|[verbose]| <code>Boolean</code> | Activate verbose. As default false. **THIS OPTION WILL BE IGNORED ON CLI**  |
 
 @returns
 
@@ -131,18 +138,18 @@ The CLI accept same parameters as API-Module.
 # Using proxy
 
 It may happen to test a web application with the need to use a proxy to access it.
-For this reason, the ability to encapsulate requests behind a *proxy* has been implemented.
+For this reason, the ability to encapsulate requests behind a *proxy* has been implemented. It works with HTTP & HTTPS targets as well.
 
-This mode can currently be used **ONLY** with http-proxies that use the `CONNECT` method to open a tunnel between the sender and the receiver.
-This method obviously slows down requests and reduces performance.
+This mode can currently be used **ONLY** with proxies working with [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) mechanism.
+    
+- Example: [using TOR as HTTP-Proxy](https://tor.stackexchange.com/questions/16554/this-is-a-socks-proxy-not-an-http-proxy)
 
-It works with HTTP & HTTPS targets.
 
 ```bash
-dirw4lker --host=http://example.com --proxy=http://127.0.0.1:3128
+dirw4lker --host=http://example.com --proxy=http://127.0.0.1:9080
 ```
 
-*Proxy must be written like url*
+*[!] Proxy must be written like url.*
 
 # Examples
 

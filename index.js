@@ -10,16 +10,17 @@ const startDicAttack = require('./lib/startDicAttack');
  * @param {Object} config
  * @param {string} config.host - The receiver hostname. (Ex: http://example.com)
  * @param {string} [config.listDir] - The path to the dictionary-file.
- * @param {string} [config.ext] - The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt')
+ * @param {Array<string>} [config.list] - Array of strings to use.
+ * @param {string|Array} [config.ext] - The extra extensions name to combine with the hostname. (EX: 'php,txt' or '.php,.txt', or ["php",...])
  * @param {string} [config.dns] - The used dns to resolve hostname.
  * @param {string} [config.proxy] - The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).
  * @param {string} [config.ignoreResponseWith] - The string to ignore on response received. If response contains given parameter, then will be ignored.
  * @param {Boolean} [config.verbose] - Activate verbose. As default false.
- * @param {Boolean} [config.asyncRequests] - Starting attack in async way.
+ * @param {Boolean} [config.asyncRequests] - Starting attack in async way. As default false.
  * @returns {Promise<Object>} - The found results. {sent:<Number>, founds:[{target:<host:port/foundPage>, response:<string>, ms:<Number>}, ...]}
  */
 async function launch(config) {
-    const EXTENSIONS = ['/']; //defining default extensions to use
+    const DEFAULT_EXTENSIONS = ['/']; //defining default extensions to use
     const logger = new Logger(config.verbose);
     delete config.verbose; //delete verbose attribute 'cause is only need to init Logger-Instance
 
@@ -30,30 +31,37 @@ async function launch(config) {
     if (!config.host) {
         throw new Error('host parameter is not used or empty. Ex: --host=http://example.com');
     }
-    if (!config.listDir) {
+    if (!config.listDir && !config.list) {
         logger.log('\n--listDir parameter is not used or empty. Using default list will not be really effective!');
         config.listDir = __dirname + '/lib/lists/global.txt';
     }
     if (config.ext) {
-        config.ext.split(',')
+        config.ext = ((typeof config.ext === 'string') ? config.ext.split(',') : config.ext)
             .map(function (ext) {
                 ext = (ext[0] !== '.') ? '.' + ext : ext;
-                EXTENSIONS.push(ext);
+                return ext;
             });
     }
 
-    const data = await readFile(config.listDir);
-    //cleaning data from #comments or empty strings
-    const cleanedData = data.toString()
-        .split('\n')
-        .filter(function (string) {
-            return string && string[0] !== '#';
-        });
+    config.ext = [...DEFAULT_EXTENSIONS, ...(config.ext || [])];
+
+    let cleanedData;
+    if (!config.list || !(config.list instanceof Array)) {
+        const data = await readFile(config.listDir);
+        //cleaning data from #comments or empty strings
+        cleanedData = data.toString()
+            .split('\n')
+            .filter(function (string) {
+                return string && string[0] !== '#';
+            });
+    } else {
+        cleanedData = config.list;
+    }
 
     logger.log('\n');
     const results = await startDicAttack({
         list: cleanedData,
-        extensions: EXTENSIONS,
+        extensions: config.ext,
         target: config.host,
         dns: config.dns,
         proxy: config.proxy,

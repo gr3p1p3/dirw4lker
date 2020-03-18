@@ -12,7 +12,7 @@ return dirWalker.launch(config)
         console.timeEnd('Time');
     })
     .catch(function (err) {
-        console.log(err.message);
+        console.log(err);
         console.timeEnd('Time');
         process.exit();
     });
