@@ -1,6 +1,5 @@
 /**
- *
- *
+ * Scanning subdirectories
  * */
 
 const dirWalker = require('../index');
@@ -10,7 +9,6 @@ const dirWalker = require('../index');
         host: 'http://10.10.10.160/',
         ext: 'php,html,txt,jpg,css,xml,js',
         asyncRequests: true,
-        // verbose: true,
         ignoreResponseWith: '403'
     };
 
