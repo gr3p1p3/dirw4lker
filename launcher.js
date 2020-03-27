@@ -12,7 +12,7 @@ console.time('Time');
         console.log('\nFOUNDS:', result.founds.length, '/', result.sent);
         console.timeEnd('Time');
     } catch (err) {
-        console.log('\n', err.code);
+        console.log('\n' + err.message);
         console.timeEnd('Time');
         process.exit();
     }
