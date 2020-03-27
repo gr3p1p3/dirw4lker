@@ -68,7 +68,7 @@ The method launch need a configuration object with the follow parameters:
 |[listDir]| <code>String</code> | Path to the dictionary-file to use. |
 |[list]| <code>Array</code> | Array of strings to use instead opening local file. |
 |[appendSlashAfter]| <code>Boolean</code> | Append `/` character on first loop. Default as true. |
-|[ext]| <code>String|Array</code> | The extra extensions name to combine with the hostname. ex: 'php,txt' or '.php,.txt' |
+|[ext]| <code>String/Array</code> | The extra extensions name to combine with the hostname. ex: 'php,txt' or '.php,.txt' |
 |[dns]| <code>String</code> | Used dns to resolve hostname. You can use multiple dns splitting with `,`. (Ex: '8.8.8.8,8.8.4.4') *THIS OPTION WILL BE IGNORED IF PROXY IS USED*  |
 |[proxy]| <code>String</code> | The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).   |
 |[ignoreResponseWith]| <code>String</code> | The string to ignore on response received. If response contains given parameter, then will be ignored.|
