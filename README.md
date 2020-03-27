@@ -12,21 +12,6 @@ You can use this for CTFs or to test your web applications.
 
 Pure written in NodeJs and **without** dependencies.
 
-#### Issues & Bug-Reports are welcome
-
-## Updates
-
-- [2020.03] @1.7.x implemented `list` option to use custom array.
-- [2020.03] @1.6.4 Fixed problem using proxy to http-targets
-- [2020.03] Moved repository to [https://github.com/gr3p1p3/dirw4lker](https://github.com/gr3p1p3/dirw4lker)
-- [2020.03] @1.6.x `--proxy` option works on **https**-Targets too.
-- [2020.03] @1.5.x `--proxy` option is now implemented. It will only work on **http**-Targets.
-- [2020.03] Improved a lot of performance.
-- [2020.03] @1.4.4 `--asyncRequests` option is now stable.
-- [2020.03] @1.4.x Implemented `--asyncRequests`: possibility to start a scan in an async way.
-- [2020.03] @1.3.x Implemented new option `--ignoreResponseWith`.
-- [2020.02] @1.2.x Removed option `--limit`. This will be ignored.
-
 ## Install with npm
 
 ```bash
@@ -56,15 +41,24 @@ You can omit the `--listDir` option to use the default list includes in this mod
 ```javascript
 const dirWalker = require('dirw4lker');
 
-const config = {
-    host: 'http://testphp.vulnweb.com',
-};
+(async function scan() {
+    const config = {
+        host: 'http://testphp.vulnweb.com/',
+        ext: 'php,txt,xml',
+        asyncRequests: true
+    };
 
-dirWalker.launch(config)
-    .then((founds) => {
-        console.log('FOUNDS:', founds.length);  //FOUNDS: 9
-    });
+    const result = await dirWalker.launch(config);
+    console.log('\nFOUNDS:', result.founds.length, '/', result.sent);
+    if (result.founds.length) {
+        console.log('=>', result.founds.map((r) => (r.target)));
+    }
+})();
 ```
+
+More examples on [examples folder](https://github.com/gr3p1p3/dirw4lker/tree/master/examples). 
+
+### Config Object
 
 The method launch need a configuration object with the follow parameters:
 
@@ -117,21 +111,21 @@ Output:
 --listDir parameter is not used or empty. Using default list will not be really effective!
 
 
-(1) [ 2020-03-05T18:53:57.358Z ] http://testphp.vulnweb.com/images/ => HTTP/1.1 200 OK
-(2) [ 2020-03-05T18:53:57.505Z ] http://testphp.vulnweb.com/cgi-bin/ => HTTP/1.1 403 Forbidden
-(3) [ 2020-03-05T18:53:57.656Z ] http://testphp.vulnweb.com/Templates/ => HTTP/1.1 200 OK
-(4) [ 2020-03-05T18:53:57.828Z ] http://testphp.vulnweb.com/admin/ => HTTP/1.1 200 OK
-(5) [ 2020-03-05T18:53:57.931Z ] http://testphp.vulnweb.com/Flash/ => HTTP/1.1 200 OK
-(6) [ 2020-03-05T18:53:57.943Z ] http://testphp.vulnweb.com/AJAX/ => HTTP/1.1 200 OK
-(7) [ 2020-03-05T18:53:58.014Z ] http://testphp.vulnweb.com/hpp/ => HTTP/1.1 200 OK
-(8) [ 2020-03-05T18:53:58.044Z ] http://testphp.vulnweb.com/CVS/ => HTTP/1.1 200 OK
-(9) [ 2020-03-05T18:53:58.189Z ] http://testphp.vulnweb.com/secured/ => HTTP/1.1 200 OK
+(1) [ 2020-03-27T20:22:13.098Z ] http://testphp.vulnweb.com/images/ => HTTP/1.1 200 OK
+(2) [ 2020-03-27T20:22:13.115Z ] http://testphp.vulnweb.com/cgi-bin/ => HTTP/1.1 403 Forbidden
+(3) [ 2020-03-27T20:22:13.156Z ] http://testphp.vulnweb.com/Templates/ => HTTP/1.1 200 OK
+(4) [ 2020-03-27T20:22:13.234Z ] http://testphp.vulnweb.com/admin/ => HTTP/1.1 200 OK
+(5) [ 2020-03-27T20:22:13.258Z ] http://testphp.vulnweb.com/Flash/ => HTTP/1.1 200 OK
+(6) [ 2020-03-27T20:22:13.270Z ] http://testphp.vulnweb.com/AJAX/ => HTTP/1.1 200 OK
+(7) [ 2020-03-27T20:22:13.288Z ] http://testphp.vulnweb.com/hpp/ => HTTP/1.1 200 OK
+(8) [ 2020-03-27T20:22:13.294Z ] http://testphp.vulnweb.com/CVS/ => HTTP/1.1 200 OK
+(9) [ 2020-03-27T20:22:13.347Z ] http://testphp.vulnweb.com/secured/ => HTTP/1.1 200 OK
 
-FOUNDS: 9
-Time: 1134.887ms
+FOUNDS: 9 / 184
+Time: 458.629ms
 ```
 
-*Compared to sync way => `Time: 16427.164ms`*
+*Compared to sync way => `Time: 13308.580ms`*
 
 The CLI accept same parameters as API-Module.
 
@@ -182,3 +176,20 @@ dirw4lker --host=http://example.com --listDir=/tmp/directory.txt --ignoreRespons
 ## Special Thanks
 
 Inspired by [dirBuster](https://tools.kali.org/web-applications/dirbuster).
+
+
+## Updates
+
+#### Issues & Bug-Reports are welcome
+
+- [2020.03] @1.7.x Bug Fixing & Code Refactor.
+- [2020.03] @1.7.x implemented `list` option to use custom array.
+- [2020.03] @1.6.4 Fixed problem using proxy to http-targets
+- [2020.03] Moved repository to [https://github.com/gr3p1p3/dirw4lker](https://github.com/gr3p1p3/dirw4lker)
+- [2020.03] @1.6.x `--proxy` option works on **https**-Targets too.
+- [2020.03] @1.5.x `--proxy` option is now implemented. It will only work on **http**-Targets.
+- [2020.03] Improved a lot of performance.
+- [2020.03] @1.4.4 `--asyncRequests` option is now stable.
+- [2020.03] @1.4.x Implemented `--asyncRequests`: possibility to start a scan in an async way.
+- [2020.03] @1.3.x Implemented new option `--ignoreResponseWith`.
+- [2020.02] @1.2.x Removed option `--limit`. This will be ignored.
