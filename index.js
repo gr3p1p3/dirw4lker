@@ -17,7 +17,8 @@ const startDicAttack = require('./lib/startDicAttack');
  * @param {string} [config.proxy] - The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).
  * @param {string} [config.ignoreResponseWith] - The string to ignore on response received. If response contains given parameter, then will be ignored.
  * @param {boolean} [config.verbose] - Activate verbose. As default false.
- * @param {boolean|Number} [config.asyncRequests] - Starting attack in async way. If true a max. nr. of 1000 parallel connections will be used. As default false.
+ * @param {boolean} [config.asyncRequests] - Starting attack in async way. As default false.
+ * @param {Number} [config.maxConcurrency] - The maximal number of sent parallel asynchronous requests (only if asyncRequests is true). As default 100.
  * @returns {Promise<Object>} - The found results. {sent:<Number>, founds:[{target:<host:port/foundPage>, response:<string>, ms:<Number>}, ...]}
  */
 async function launch(config = {}) {
@@ -29,6 +30,9 @@ async function launch(config = {}) {
     logger.table(config);
 
     config.dns = config.dns ? config.dns.split(',') : false;
+    if (config.maxConcurrency) {
+        config.maxConcurrency = parseInt(config.maxConcurrency) ? parseInt(config.maxConcurrency) : undefined;
+    }
     if (!config.host) {
         throw new Error('host parameter is not used or empty. Ex: --host=http://example.com');
     }
@@ -68,7 +72,7 @@ async function launch(config = {}) {
         proxy: config.proxy,
         logger,
         ignoreResponseWith: config.ignoreResponseWith
-    }, config.asyncRequests);
+    }, config.asyncRequests, config.maxConcurrency);
 
     logger.clearLine();
     //cleaning from errored

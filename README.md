@@ -73,6 +73,7 @@ The method launch need a configuration object with the follow parameters:
 |[proxy]| <code>String</code> | The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).   |
 |[ignoreResponseWith]| <code>String</code> | The string to ignore on response received. If response contains given parameter, then will be ignored.|
 |[asyncRequests]| <code>Boolean</code> | Starting attack in async way. As Default false.|
+|[maxConcurrency]| <code>Number</code> | The maximal number of sent parallel asynchronous requests (only if asyncRequests is true). As default 100.|
 |[verbose]| <code>Boolean</code> | Activate verbose. As default false. **THIS OPTION WILL BE IGNORED ON CLI**  |
 
 @returns
@@ -183,6 +184,7 @@ Inspired by [dirBuster](https://tools.kali.org/web-applications/dirbuster).
 
 #### Issues & Bug-Reports are welcome
 
+- [2020.04] @1.8.x Add maxConcurrency to avoid problem on other platforms (ex: win10).
 - [2020.03] @1.7.x Bug Fixing & Code Refactor.
 - [2020.03] @1.7.x implemented `list` option to use custom array.
 - [2020.03] @1.6.4 Fixed problem using proxy to http-targets
