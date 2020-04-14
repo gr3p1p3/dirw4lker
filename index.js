@@ -17,7 +17,7 @@ const startDicAttack = require('./lib/startDicAttack');
  * @param {string} [config.proxy] - The used proxy. The form must be the follow (Ex: http://proxyIp:proxyPort).
  * @param {string} [config.ignoreResponseWith] - The string to ignore on response received. If response contains given parameter, then will be ignored.
  * @param {boolean} [config.verbose] - Activate verbose. As default false.
- * @param {boolean} [config.asyncRequests] - Starting attack in async way. As default false.
+ * @param {boolean|Number} [config.asyncRequests] - Starting attack in async way. If true a max. nr. of 1000 parallel connections will be used. As default false.
  * @returns {Promise<Object>} - The found results. {sent:<Number>, founds:[{target:<host:port/foundPage>, response:<string>, ms:<Number>}, ...]}
  */
 async function launch(config = {}) {

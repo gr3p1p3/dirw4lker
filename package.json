@@ -1,11 +1,11 @@
 {
   "name": "dirw4lker",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "Asynchronous Web-Directories Scanner.\nFind hidden or not hidden directories and files on target web application.",
   "main": "index.js",
   "bin": "./launcher.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js && exit 0"
   },
   "keywords": [
     "test",
