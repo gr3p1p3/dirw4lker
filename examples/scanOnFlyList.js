@@ -6,8 +6,8 @@ const dirWalker = require('../index');
 
 (async function scan() {
     const config = {
-        host: 'https://www.tripuls.de/',
-        list: ['login.php', 'Templates/', 'impulse/'], //dont use any file but own list of strings
+        host: 'http://testphp.vulnweb.com/',
+        list: ['login.php', 'Templates/'], //dont use any file but own list of strings
         appendSlashAfter: false, //deactivating default appending of "/"
         proxy: 'http://127.0.0.1:9080/', //using proxy
         asyncRequests: true
