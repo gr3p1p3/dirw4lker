@@ -8,7 +8,8 @@
 Implemented directly on top of TCP, improving performance avoiding headers-stripping and getting a lot of chunks from websites containing a lot of content. 
 
 It works with HTTP and HTTPS protocols and it allows to find hidden files hosted on target url using a dictionary-list.
-You can use this for CTFs or to test your web applications. 
+
+You can use this for CTFs or to test your web applications or to automate your own multiple hosts monitoring. 
 
 Pure written in NodeJs and **without** dependencies.
 
@@ -56,7 +57,7 @@ const dirWalker = require('dirw4lker');
 })();
 ```
 
-More examples on [examples folder](https://github.com/gr3p1p3/dirw4lker/tree/master/examples). 
+More examples in [examples folder](https://github.com/gr3p1p3/dirw4lker/tree/master/examples). 
 
 ### Config Object
 
@@ -136,7 +137,7 @@ The CLI accept same parameters as API-Module.
 It may happen to test a web application with the need to use a proxy to access it.
 For this reason, the ability to encapsulate requests behind a *proxy* has been implemented. It works with HTTP & HTTPS targets as well.
 
-This mode can currently be used **ONLY** with proxies working with [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) mechanism.
+This mode can be used with proxies working with [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) mechanism.
     
 - Example: [using TOR as HTTP-Proxy](https://tor.stackexchange.com/questions/16554/this-is-a-socks-proxy-not-an-http-proxy)
 

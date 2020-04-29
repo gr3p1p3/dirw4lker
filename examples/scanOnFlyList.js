@@ -9,7 +9,7 @@ const dirWalker = require('../index');
         host: 'http://testphp.vulnweb.com/',
         list: ['login.php', 'Templates/'], //dont use any file but own list of strings
         appendSlashAfter: false, //deactivating default appending of "/"
-        proxy: 'http://127.0.0.1:9080/', //using proxy
+        proxy: 'http://5.230.65.45:8081/', //using proxy
         asyncRequests: true
     };
 
